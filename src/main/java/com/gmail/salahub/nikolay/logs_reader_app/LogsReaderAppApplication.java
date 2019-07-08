@@ -14,7 +14,7 @@ public class LogsReaderAppApplication {
     public static void main(String[] args) throws URISyntaxException, ExecutionException, InterruptedException {
         ConfigurableApplicationContext context = SpringApplication.run(LogsReaderAppApplication.class, args);
         TaskService taskService = context.getBean(TaskService.class);
-        taskService.executeTask(context);
+        taskService.executeTask();
     }
 
 

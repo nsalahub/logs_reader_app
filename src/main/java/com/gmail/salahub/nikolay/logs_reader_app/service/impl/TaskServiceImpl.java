@@ -5,11 +5,13 @@ import com.gmail.salahub.nikolay.logs_reader_app.service.FileService;
 import com.gmail.salahub.nikolay.logs_reader_app.service.TaskService;
 import com.gmail.salahub.nikolay.logs_reader_app.thread.FileReaderThread;
 import com.gmail.salahub.nikolay.logs_reader_app.thread.FileWriterThread;
-import org.springframework.context.ConfigurableApplicationContext;
+
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.net.URISyntaxException;
+
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -34,7 +36,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void executeTask(ConfigurableApplicationContext context) throws URISyntaxException,
+    public void executeTask() throws URISyntaxException,
             ExecutionException, InterruptedException {
         File[] files = fileService.getListFilesFromDirectory();
 
@@ -49,6 +51,7 @@ public class TaskServiceImpl implements TaskService {
         List<String> resultList = actionArrayService.getListWithDateAndCount(
                 actionArrayService.getListWithDateFromLinesList(
                         actionArrayService.getLinesFromFutureList(futureList)));
+
 
         Runnable runnable = new FileWriterThread(resultList);
         Thread thread = new Thread(runnable);
